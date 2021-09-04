@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import Card from "./components/Card";
+import Pagination from "./components/Pagination";
 
 const App = ({ match }) => {
   const pageNumber = match.params.pageNumber || 1;
@@ -33,14 +35,15 @@ const App = ({ match }) => {
     fetchPosts();
   }, [page]);
 
-  console.log(posts);
-  console.log(pages);
-
   return (
-    <div className="App">
-      {/* Pagination Component */}
-      {/* Posts listing */}
-      {/* Pagination Component */}
+    <div className="app">
+      <Pagination page={page} pages={pages} changePage={setPage} />
+      <div className="app__posts">
+        {posts.map((post) => (
+          <Card key={post.id} post={post} />
+        ))}
+      </div>
+      <Pagination page={page} pages={pages} changePage={setPage} />
     </div>
   );
 };
